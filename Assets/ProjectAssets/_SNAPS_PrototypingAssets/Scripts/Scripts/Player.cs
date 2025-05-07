@@ -22,6 +22,14 @@ public class PlayerController : MonoBehaviour
         count = 0;
         SetCountText();
         winText.text = "";
+
+        // ✅ Set RectTransform position, scale up 5x
+        RectTransform rt = winText.GetComponent<RectTransform>();
+        rt.anchorMin = new Vector2(0.5f, 0.5f);  // center anchor
+        rt.anchorMax = new Vector2(0.5f, 0.5f);  // center anchor
+        rt.pivot = new Vector2(0.5f, 0.5f);      // center pivot
+        rt.anchoredPosition = new Vector2(0, 470);  // X=0, Y=470
+        rt.localScale = new Vector3(5f, 5f, 5f);    // scale up 5x
     }
 
     void FixedUpdate()
@@ -55,7 +63,7 @@ public class PlayerController : MonoBehaviour
             }
         }
 
-        // ✅ NEW: Detect collision with Spawner
+        // ✅ Detect collision with Spawner
         if (other.gameObject.CompareTag("Spawner"))
         {
             winText.text = "Don't Mess With My Crib!";
