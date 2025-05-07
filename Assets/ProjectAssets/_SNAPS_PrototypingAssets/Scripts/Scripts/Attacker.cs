@@ -8,7 +8,7 @@ public class Attacker : MonoBehaviour
     public float speed = 5f;
     public float destroyDistance = 40f;
     public float pushBackForce = 10f;
-    public float pushUpForce = 10f;  // ✅ More "fly" effect
+    public float pushUpForce = 10f;  // Adds lift when pushed
 
     private Vector3 spawnPosition;
     private Rigidbody rb;
@@ -29,7 +29,7 @@ public class Attacker : MonoBehaviour
 
     void Update()
     {
-        transform.position += Vector3.forward * speed * Time.deltaTime;  // ✅ Move along Z axis
+        transform.position += Vector3.forward * speed * Time.deltaTime;
 
         if (Vector3.Distance(spawnPosition, transform.position) >= destroyDistance)
         {
@@ -37,25 +37,30 @@ public class Attacker : MonoBehaviour
         }
     }
 
-    private void OnCollisionEnter(Collision collision)
+    private void OnTriggerEnter(Collider other)
     {
-        if (collision.gameObject.CompareTag("Player"))
+        if (other.CompareTag("Player"))
         {
-            Vector3 pushDirection = (transform.position - collision.transform.position).normalized;
-            pushDirection.y = 0.5f;  // ✅ Add vertical to push for flying
+            Debug.Log("Attacker triggered by Player!");
+
+            Vector3 pushDirection = (transform.position - other.transform.position).normalized;
+            pushDirection.y = 0.5f;  // Adds slight upward angle
+
+            rb.isKinematic = false;  // Ensure Rigidbody physics is active
+            rb.useGravity = true;
 
             rb.AddForce(pushDirection * pushBackForce + Vector3.up * pushUpForce, ForceMode.Impulse);
         }
 
-        if (collision.gameObject.CompareTag("GameOverTrigger"))
+        if (other.CompareTag("GameOverTrigger"))
         {
             GameOver();
         }
+    }
 
-        void GameOver()
-        {
-            Debug.Log("Game Over!");
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-        }
+    private void GameOver()
+    {
+        Debug.Log("Game Over!");
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 }

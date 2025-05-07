@@ -12,7 +12,7 @@ public class PlayerController : MonoBehaviour
     private int count;
 
     [Header("Add reference in Inspector")]
-    public Spawner spawner;  // ✅ Add a reference to the Spawner script
+    public Spawner spawner;  // ✅ Reference to the Spawner script
 
     void Start()
     {
@@ -39,7 +39,7 @@ public class PlayerController : MonoBehaviour
             count = count + 1;
             SetCountText();
 
-            // ✅ Check if we've reached 15 Pick Ups
+            // ✅ Trigger Spawner activation when 15 pickups collected
             if (count == 15)
             {
                 if (spawner != null)
@@ -53,13 +53,14 @@ public class PlayerController : MonoBehaviour
             }
         }
     }
-void SetCountText()
-{
-    countText.text = "Count: " + count.ToString();
 
-    if (count >= 15)
+    void SetCountText()
     {
-        winText.text = "You Win!";
+        countText.text = "Count: " + count.ToString();
+
+        if (count >= 15)
+        {
+            winText.text = "You Win!";
+        }
     }
-}
 }
