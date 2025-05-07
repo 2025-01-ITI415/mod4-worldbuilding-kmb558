@@ -27,10 +27,12 @@ public class Spawner : MonoBehaviour
             if (pos.z < -leftAndRightEdge)
             {
                 speed = Mathf.Abs(speed); // Move right
+                Debug.Log("Spawner hit left boundary → reversing right.");
             }
             else if (pos.z > leftAndRightEdge)
             {
                 speed = -Mathf.Abs(speed); // Move left
+                Debug.Log("Spawner hit right boundary → reversing left.");
             }
         }
     }
@@ -43,23 +45,41 @@ public class Spawner : MonoBehaviour
             if (Random.value < chanceToChangeDirections)
             {
                 speed *= -1;
+                Debug.Log("Spawner randomly changed direction.");
             }
         }
     }
 
     void SpawnAttacker()
     {
-        // Instantiate attacker at the spawner's position
-        Instantiate(attackerPrefab, transform.position, Quaternion.identity);
+        Debug.Log("SpawnAttacker() called!");
+
+        if (attackerPrefab != null)
+        {
+            Instantiate(attackerPrefab, transform.position, Quaternion.identity);
+            Debug.Log("Attacker instantiated at: " + transform.position);
+        }
+        else
+        {
+            Debug.LogWarning("attackerPrefab is NOT assigned in Inspector!");
+        }
     }
 
     // Call this method from PlayerController when 15 pick ups are collected
     public void StartSpawning()
     {
+        Debug.Log("StartSpawning() was called!");
+
         if (!isSpawning)
         {
             isSpawning = true;
+            Debug.Log("Spawning activated! Starting InvokeRepeating...");
+
             InvokeRepeating("SpawnAttacker", 0f, secondsBetweenSpawns);
+        }
+        else
+        {
+            Debug.Log("StartSpawning() called but isSpawning was already true.");
         }
     }
 }
