@@ -18,10 +18,12 @@ public class Spawner : MonoBehaviour
     {
         if (isSpawning)
         {
+            // ✅ Move spawner left and right along the X-axis
             Vector3 pos = transform.position;
             pos.x += speed * Time.deltaTime;
             transform.position = pos;
 
+            // ✅ Reverse direction when hitting movement boundaries
             if (pos.x < -leftAndRightEdge)
             {
                 speed = Mathf.Abs(speed); // Move right
@@ -39,6 +41,7 @@ public class Spawner : MonoBehaviour
     {
         if (isSpawning)
         {
+            // ✅ Random chance to change direction
             if (Random.value < chanceToChangeDirections)
             {
                 speed *= -1;
@@ -53,8 +56,11 @@ public class Spawner : MonoBehaviour
 
         if (attackerPrefab != null)
         {
+            // ✅ Offset spawn position: +10 units up (Y), +10 units forward (Z)
             Vector3 spawnPos = transform.position;
-            spawnPos.y += 5f;  // ✅ raise Y by 5
+            spawnPos.y += 10f;
+            spawnPos.z += 10f;
+
             Instantiate(attackerPrefab, spawnPos, Quaternion.identity);
             Debug.Log("Attacker instantiated at: " + spawnPos);
         }
@@ -64,6 +70,7 @@ public class Spawner : MonoBehaviour
         }
     }
 
+    // Call this method from PlayerController when 15 pick ups are collected
     public void StartSpawning()
     {
         Debug.Log("StartSpawning() was called!");

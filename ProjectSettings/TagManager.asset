@@ -6,6 +6,8 @@ TagManager:
   tags:
   - Fire
   - Pick Up
+  - Attacker
+  - '"Pick Up"'
   layers:
   - Default
   - TransparentFX
