@@ -5,6 +5,8 @@ using System.Collections;
 public class PlayerController : MonoBehaviour
 {
     public float speed;
+    public float pushBackForce = 10f;
+    public float pushUpForce = 10f;
     public Text countText;
     public Text winText;
 

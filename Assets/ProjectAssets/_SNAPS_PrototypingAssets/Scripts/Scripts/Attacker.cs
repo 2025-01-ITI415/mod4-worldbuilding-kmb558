@@ -7,8 +7,8 @@ public class Attacker : MonoBehaviour
 {
     public float speed = 5f;
     public float destroyDistance = 40f;
-    public float pushBackForce = 10f;
-    public float pushUpForce = 10f;  // Adds lift when pushed
+    public float pushBackForce = 100f;  // increased default for stronger knockback
+    public float pushUpForce = 20f;     // increased default for more lift
 
     private Vector3 spawnPosition;
     private Rigidbody rb;
@@ -44,12 +44,15 @@ public class Attacker : MonoBehaviour
             Debug.Log("Attacker triggered by Player!");
 
             Vector3 pushDirection = (transform.position - other.transform.position).normalized;
-            pushDirection.y = 0.5f;  // Adds slight upward angle
+            pushDirection.y = 0.5f;  // slight upward angle
 
-            rb.isKinematic = false;  // Ensure Rigidbody physics is active
+            Vector3 force = pushDirection * pushBackForce + Vector3.up * pushUpForce;
+
+            rb.isKinematic = false;
             rb.useGravity = true;
 
-            rb.AddForce(pushDirection * pushBackForce + Vector3.up * pushUpForce, ForceMode.Impulse);
+            rb.AddForceAtPosition(force, other.transform.position, ForceMode.Impulse);
+            Debug.DrawRay(other.transform.position, force, Color.red, 1f);
         }
 
         if (other.CompareTag("GameOverTrigger"))
