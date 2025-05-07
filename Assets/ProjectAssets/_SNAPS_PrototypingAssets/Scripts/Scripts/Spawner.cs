@@ -5,35 +5,46 @@ using UnityEngine;
 public class Spawner : MonoBehaviour
 {
     [Header("Set in Inspector")]
-    public GameObject attackerPrefab; // Prefab for instantiating attackers
+    public GameObject attackerPrefab;
 
-    public float speed = 1f; // Speed at which the Spawner moves
-    public float leftAndRightEdge = 10f; // Movement boundary
-    public float chanceToChangeDirections = 0.1f; // Chance to change direction
-    public float secondsBetweenSpawns = 1f; // Spawn rate
+    public float speed = 1f; // Spawner movement speed
+    public float leftEdge = 403f; // Left boundary X position
+    public float rightEdge = 544f; // Right boundary X position
+    public float chanceToChangeDirections = 0.1f;
+    public float secondsBetweenSpawns = 1f;
 
-    private bool isSpawning = false; // Flag to control spawning
+    private bool isSpawning = false;
+
+    void Start()
+    {
+        // ✅ Optional: clamp initial position within allowed range
+        Vector3 pos = transform.position;
+        pos.x = Mathf.Clamp(pos.x, leftEdge, rightEdge);
+        transform.position = pos;
+    }
 
     void Update()
     {
         if (isSpawning)
         {
-            // ✅ Move spawner left and right along the X-axis
             Vector3 pos = transform.position;
             pos.x += speed * Time.deltaTime;
-            transform.position = pos;
 
-            // ✅ Reverse direction when hitting movement boundaries
-            if (pos.x < -leftAndRightEdge)
+            // ✅ Reverse and clamp if beyond left or right edges
+            if (pos.x < leftEdge)
             {
-                speed = Mathf.Abs(speed); // Move right
+                speed = Mathf.Abs(speed); // move right
+                pos.x = leftEdge;
                 Debug.Log("Spawner hit left boundary → reversing right.");
             }
-            else if (pos.x > leftAndRightEdge)
+            else if (pos.x > rightEdge)
             {
-                speed = -Mathf.Abs(speed); // Move left
+                speed = -Mathf.Abs(speed); // move left
+                pos.x = rightEdge;
                 Debug.Log("Spawner hit right boundary → reversing left.");
             }
+
+            transform.position = pos;
         }
     }
 
@@ -41,7 +52,6 @@ public class Spawner : MonoBehaviour
     {
         if (isSpawning)
         {
-            // ✅ Random chance to change direction
             if (Random.value < chanceToChangeDirections)
             {
                 speed *= -1;
@@ -56,10 +66,9 @@ public class Spawner : MonoBehaviour
 
         if (attackerPrefab != null)
         {
-            // ✅ Offset spawn position: +10 units up (Y), +10 units forward (Z)
             Vector3 spawnPos = transform.position;
-            spawnPos.y += 10f;
-            spawnPos.z += 10f;
+            spawnPos.y += 10f;  // Offset up
+            spawnPos.z += 10f;  // Offset forward
 
             Instantiate(attackerPrefab, spawnPos, Quaternion.identity);
             Debug.Log("Attacker instantiated at: " + spawnPos);
@@ -70,7 +79,6 @@ public class Spawner : MonoBehaviour
         }
     }
 
-    // Call this method from PlayerController when 15 pick ups are collected
     public void StartSpawning()
     {
         Debug.Log("StartSpawning() was called!");
@@ -79,7 +87,6 @@ public class Spawner : MonoBehaviour
         {
             isSpawning = true;
             Debug.Log("Spawning activated! Starting InvokeRepeating...");
-
             InvokeRepeating("SpawnAttacker", 0f, secondsBetweenSpawns);
         }
         else
