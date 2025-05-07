@@ -30,7 +30,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: a80a53f82c2df4928bed285f8cc56a9a, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 563
+      value: 565
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: a80a53f82c2df4928bed285f8cc56a9a, type: 3}
       propertyPath: m_LocalRotation.w
@@ -76,6 +76,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Spawner
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: a80a53f82c2df4928bed285f8cc56a9a, type: 3}
+      propertyPath: m_TagString
+      value: Spawner
+      objectReference: {fileID: 0}
     - target: {fileID: 1824863369544968301, guid: a80a53f82c2df4928bed285f8cc56a9a, type: 3}
       propertyPath: m_Color.b
       value: 0.2675329
@@ -119,11 +123,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f0b0913a6c6224191bfd89d46e53ee9f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attackerPrefab: {fileID: 0}
-  speed: 3
-  leftAndRightEdge: 6
-  chanceToChangeDirections: 0.5
-  secondsBetweenSpawns: 3
+  attackerPrefab: {fileID: 7743907620049535953, guid: e6d0f8788b5d44e5987e4bf716ac6ac2, type: 3}
+  speed: 7
+  leftEdge: 403
+  rightEdge: 544
+  chanceToChangeDirections: 0.05
+  secondsBetweenSpawns: 2
 --- !u!65 &684277019342062502
 BoxCollider:
   m_ObjectHideFlags: 0
