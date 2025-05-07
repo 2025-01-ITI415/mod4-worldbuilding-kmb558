@@ -8,7 +8,7 @@ public class Attacker : MonoBehaviour
     public float speed = 5f;
     public float destroyDistance = 40f;
     public float pushBackForce = 10f;
-    public float pushUpForce = 10f;  // ✅ Made stronger for more "fly" effect
+    public float pushUpForce = 10f;  // ✅ More "fly" effect
 
     private Vector3 spawnPosition;
     private Rigidbody rb;
@@ -29,7 +29,7 @@ public class Attacker : MonoBehaviour
 
     void Update()
     {
-        transform.position += Vector3.right * speed * Time.deltaTime;
+        transform.position += Vector3.forward * speed * Time.deltaTime;  // ✅ Move along Z axis
 
         if (Vector3.Distance(spawnPosition, transform.position) >= destroyDistance)
         {
@@ -42,7 +42,7 @@ public class Attacker : MonoBehaviour
         if (collision.gameObject.CompareTag("Player"))
         {
             Vector3 pushDirection = (transform.position - collision.transform.position).normalized;
-            pushDirection.y = 0.5f;  // ✅ Add some vertical to push for more "flying" feel
+            pushDirection.y = 0.5f;  // ✅ Add vertical to push for flying
 
             rb.AddForce(pushDirection * pushBackForce + Vector3.up * pushUpForce, ForceMode.Impulse);
         }
