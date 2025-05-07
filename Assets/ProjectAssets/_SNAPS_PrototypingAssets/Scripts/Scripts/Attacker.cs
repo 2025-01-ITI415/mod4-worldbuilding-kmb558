@@ -54,9 +54,13 @@ public class Attacker : MonoBehaviour
             rb.AddForceAtPosition(force, other.transform.position, ForceMode.Impulse);
             Debug.DrawRay(other.transform.position, force, Color.red, 1f);
         }
+    }
 
-        if (other.CompareTag("GameOverTrigger"))
+    private void OnCollisionEnter(Collision other)
+    {
+        if (other.gameObject.CompareTag("GameOverTrigger"))
         {
+            Debug.Log("Attacker collided with GameOverTrigger → triggering Game Over!");
             GameOver();
         }
     }
