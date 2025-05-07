@@ -17,7 +17,7 @@ public class Spawner : MonoBehaviour
 
     void Start()
     {
-        // ✅ Optional: clamp initial position within allowed range
+        // Optional: clamp initial position within allowed range
         Vector3 pos = transform.position;
         pos.x = Mathf.Clamp(pos.x, leftEdge, rightEdge);
         transform.position = pos;
@@ -30,7 +30,7 @@ public class Spawner : MonoBehaviour
             Vector3 pos = transform.position;
             pos.x += speed * Time.deltaTime;
 
-            // ✅ Reverse and clamp if beyond left or right edges
+            // Reverse and clamp if beyond left or right edges
             if (pos.x < leftEdge)
             {
                 speed = Mathf.Abs(speed); // move right

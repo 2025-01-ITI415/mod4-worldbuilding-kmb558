@@ -14,7 +14,7 @@ public class PlayerController : MonoBehaviour
     private int count;
 
     [Header("Add reference in Inspector")]
-    public Spawner spawner;  // ✅ Reference to the Spawner script
+    public Spawner spawner;  //  Reference to the Spawner script
 
     void Start()
     {
@@ -23,7 +23,7 @@ public class PlayerController : MonoBehaviour
         SetCountText();
         winText.text = "";
 
-        // ✅ Set RectTransform position, scale up 5x
+        //  Set RectTransform position, scale up 5x
         RectTransform rt = winText.GetComponent<RectTransform>();
         rt.anchorMin = new Vector2(0.5f, 0.5f);  // center anchor
         rt.anchorMax = new Vector2(0.5f, 0.5f);  // center anchor
@@ -49,7 +49,7 @@ public class PlayerController : MonoBehaviour
             count = count + 1;
             SetCountText();
 
-            // ✅ Trigger Spawner activation when 15 pickups collected
+            // Trigger Spawner activation when 15 pickups collected
             if (count == 15)
             {
                 if (spawner != null)
@@ -63,7 +63,7 @@ public class PlayerController : MonoBehaviour
             }
         }
 
-        // ✅ Detect collision with Spawner
+        // Detect collision with Spawner
         if (other.gameObject.CompareTag("Spawner"))
         {
             winText.text = "Don't Mess With My Crib!";
