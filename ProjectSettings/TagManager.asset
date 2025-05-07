@@ -9,6 +9,7 @@ TagManager:
   - Attacker
   - '"Pick Up"'
   - GameOverTrigger
+  - Spawner
   layers:
   - Default
   - TransparentFX
