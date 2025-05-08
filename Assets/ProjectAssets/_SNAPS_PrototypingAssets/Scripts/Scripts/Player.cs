@@ -67,7 +67,7 @@ public class PlayerController : MonoBehaviour
         if (other.gameObject.CompareTag("Spawner"))
         {
             winText.text = "Don't Mess With My Crib!";
-            Debug.Log("Player touched Spawner → Don't Mess With My Crib!");
+            Debug.Log("Player touched Spawner -> Don't Mess With My Crib!");
         }
     }
 

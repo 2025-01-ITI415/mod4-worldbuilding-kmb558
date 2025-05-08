@@ -60,7 +60,7 @@ public class Attacker : MonoBehaviour
     {
         if (other.gameObject.CompareTag("GameOverTrigger"))
         {
-            Debug.Log("Attacker collided with GameOverTrigger → triggering Game Over!");
+            Debug.Log("Attacker collided with GameOverTrigger -> triggering Game Over!");
             GameOver();
         }
     }

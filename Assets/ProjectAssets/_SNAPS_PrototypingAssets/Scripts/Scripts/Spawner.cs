@@ -35,13 +35,13 @@ public class Spawner : MonoBehaviour
             {
                 speed = Mathf.Abs(speed); // move right
                 pos.x = leftEdge;
-                Debug.Log("Spawner hit left boundary → reversing right.");
+                Debug.Log("Spawner hit left boundary -> reversing right.");
             }
             else if (pos.x > rightEdge)
             {
                 speed = -Mathf.Abs(speed); // move left
                 pos.x = rightEdge;
-                Debug.Log("Spawner hit right boundary → reversing left.");
+                Debug.Log("Spawner hit right boundary -> reversing left.");
             }
 
             transform.position = pos;
